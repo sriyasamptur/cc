@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+    user: 
+        build:
+            context: .
+            dockerfile: user_dockerfile
+        ports:
+            - "8080:5000"
+        networks:
+            app_net: 
+                ipv4_address: 171.19.0.2
+        volumes:
+            - .:/web
+        environment:
+            - PORT:5000
+    
+    ride:
+        build:
+            context: .
+            dockerfile: ride_dockerfile
+        ports: 
+            - "8000:5000"
+        networks:
+            app_net:
+                ipv4_address: 171.19.0.3
+        volumes: 
+            - .:/ride
+        environment: 
+            - PORT:5000
+networks: 
+    app_net:
+        ipam: 
+            driver: default
+            config: 
+                - subnet: "171.19.0.0/24"
+                      

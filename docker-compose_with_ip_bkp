@@ -1,0 +1,26 @@
+version: '2'
+services:
+    users: 
+        build:
+            context: .
+            dockerfile: user_dockerfile
+        container_name: users
+        
+        ports:
+            - "8080:5000"
+        expose: 
+            - 5000
+    
+    rides:
+        build:
+            context: .
+            dockerfile: ride_dockerfile
+
+        container_name: rides
+        
+        ports: 
+            - "8000:5000"
+        expose: 
+            - 5000
+        links: 
+            - users
